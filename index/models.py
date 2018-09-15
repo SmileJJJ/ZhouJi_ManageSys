@@ -9,6 +9,7 @@ class company_member(models.Model):
     phone = models.CharField(max_length=15,verbose_name='联系方式')
     email = models.EmailField(verbose_name='电子邮箱')
     introduce = models.TextField(verbose_name='成员介绍')
+    password = models.CharField(max_length=12,verbose_name='登录密码',default='123456')
 
     class Meta:
         db_table = 'company_member'
