@@ -19,6 +19,19 @@ class company_member(models.Model):
     def __str__(self):
         return self.name
 
+    def get_info(self):
+        dic = {
+            'id':self.id,
+            'name':self.name,
+            'gender':self.gender,
+            'age':self.age,
+            'birthday':self.birthday,
+            'phone':self.phone,
+            'email':self.email,
+            'introduce':self.introduce,
+        }
+        return dic
+
 class customer_info(models.Model):
     name = models.CharField(max_length=10,verbose_name='客户姓名')
     contact = models.CharField(max_length=30,verbose_name='联系方式')
