@@ -24,8 +24,7 @@
 <body style="margin-top: 70px">
 <div class="container">
     <div>
-{#        autofocus="autofocus"#}
-        <button id="company_member_btn" class="btn btn-default"  >公司成员</button>
+        <button id="company_member_btn" class="btn btn-default" autofocus="autofocus" >公司成员</button>
         <button id="customer_info_btn" class="btn btn-default">客户信息</button>
         <button id="build" class="btn btn-default">项目汇总</button>
         <button id="build" class="btn btn-default">产品信息</button>
@@ -33,26 +32,16 @@
     </div>
     <table id="table"
            data-toggle="table"
-           data-url="static/data/data.json"
-           data-show-columns="true"
-           data-search="true"
-           data-show-refresh="true"
-           data-show-toggle="true"
-           data-pagination="true"
-           data-height="500"
+{#           data-url="static/data/data.json"#}
+{#           data-show-columns="true"#}
+{#           data-search="true"#}
+{#           data-show-refresh="true"#}
+{#           data-show-toggle="true"#}
+{#           data-pagination="true"#}
+{#           data-height="500"#}
         >
         <thead>
         <tr id="fields_name">
-            {% block fields_name %}
-            <th data-field="id" data-formatter="idFormatter">ID</th>
-            <th data-field="name">姓名</th>
-            <th data-field="gender">性别</th>
-            <th data-field="age">年龄</th>
-            <th data-field="birthday">出生日期</th>
-            <th data-field="phone">联系方式</th>
-            <th data-field="email">电子邮箱</th>
-            <th data-field="introduce">简介</th>
-            {% endblock %}
         </tr>
         </thead>
 
@@ -67,96 +56,48 @@
 <script src="/static/js/tableExport.js"></script>
 <script src="/static/js/jquery.base64.js"></script>
 <script src="/static/js/bootstrap-table.js"></script>
-<script src="/static/js/bootstrap-table-export.js"></script>
+{#<script src="/static/js/bootstrap-table-export.js"></script>#}
 <script>
-
     function get_info(target){
         $.get(
-            '/get_info',
+            '/get_info/',
             {'target':target},
             function (data) {
-
-                /*
                 var html_fields_name = ''
+                var html_info='';
                 $.each(data,function (i, obj) {
-                    html_fields_name += '<th data-field="'+ obj +'" data-formatter="idFormatter">'+ obj +'</th>';
-                })
-                $('#fields_name').html('<th data-field="id" data-formatter="idFormatter">ID</th>')
-
-                    console.log(obj)
                     var id = obj.pk
                     var info_arry = obj.fields
-                    var html_fields_name='';
-                    html_info += '<tr>'
-                    html_fields_name += '<th data-field="id" data-formatter="idFormatter">ID</th>';
-                    html_info += '<th data-field="'+ id +'" data-formatter="idFormatter">'+ id +'</th>';
+                    html_fields_name += '<th>ID</th>';
+                    html_info += '<th>'+ id +'</th>';
+
                     $.each(info_arry,function (i,fields_info) {
                         if(i != 'password'){
-                            html_fields_name += '<th data-field="'+ i +'">'+ i +'</th>';
-                            html_info += '<th data-field="'+ fields_info +'" data-formatter="idFormatter" >'+ fields_info +'</th>';
-                            console.log(i)
+                            html_fields_name += '<th>'+ i +'</th>';
+                            html_info += '<th>'+ fields_info +'</th>';
                         }
                         $('#fields_name').html(html_fields_name)
                     })
                     html_info += '</tr>'
                     $('#fields_info').html(html_info)
                 })
-                */
-            },
+                },
             'json'
         )
     }
 
     $(function () {
-        {#get_info('company_member')#}
-        $('#build').click(build);//.trigger('click');
-        $('#cells, #rows').keyup(function (e) {
-            if (e.keyCode === 13) {
-                build();
-            }
-        });
+        get_info('company_member')
     });
 
-    function build() {
-        var cells = $('#cells').val(),
-            rows = $('#rows').val(),
-            i, j, row,
-            columns = [],
-            data = [];
-
-        for (i = 0; i < cells; i++) {
-            columns.push({
-                field: 'field' + i,
-                title: 'Cell' + i
-            });
-        }
-        for (i = 0; i < rows; i++) {
-            row = {};
-            for (j = 0; j < cells; j++) {
-                row['field' + j] = 'Row-' + i + '-' + j;
-            }
-            data.push(row);
-        }
-        $('#table').bootstrapTable('destroy').bootstrapTable({
-            columns: columns,
-            data: data
-        });
+    $('#company_member_btn').click(function () {
+        get_info('company_member')
     }
-
-    function idFormatter(value) {
-        return value + 100;
-    }
-
-    $('#customer_info_btn').click(
-        function () {
-            window.location.href = "/customer_info/";
-        }
     )
 
-    $('#company_member_btn').click(
-        function () {
-            window.location.href = "/";
-        }
+    $('#customer_info_btn').click(function () {
+        get_info('customer_info')
+    }
     )
 
 </script>
