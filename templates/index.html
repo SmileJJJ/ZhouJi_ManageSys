@@ -26,9 +26,13 @@
     <div>
         <button id="company_member_btn" class="btn btn-default" autofocus="autofocus" >公司成员</button>
         <button id="customer_info_btn" class="btn btn-default">客户信息</button>
+        <button id="supplier_info_btn" class="btn btn-default">供应商信息</button>
+        <button id="factory_info_btn" class="btn btn-default">工厂信息</button>
+
         <button id="build" class="btn btn-default">项目汇总</button>
         <button id="build" class="btn btn-default">产品信息</button>
         <button id="build" class="btn btn-default">产品仓库</button>
+
     </div>
     <table id="table"
            data-toggle="table"
@@ -97,6 +101,16 @@
 
     $('#customer_info_btn').click(function () {
         get_info('customer_info')
+    }
+    )
+
+    $('#supplier_info_btn').click(function () {
+        get_info('supplier_info')
+    }
+    )
+
+    $('#factory_info_btn').click(function () {
+        get_info('factory_info')
     }
     )
 
